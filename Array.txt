@@ -262,6 +262,32 @@ class Solution {
 }
 
 
+Q-10->Minimize the Heights I -->https://www.geeksforgeeks.org/problems/minimize-the-heights-i/1
+
+
+class Solution {
+    public int getMinDiff(int[] arr, int k) {
+        // code here
+        int n = arr.length;
+        
+        Arrays.sort(arr);
+        int min = arr[0];
+        int max = arr[arr.length - 1];
+        int diff = arr[arr.length - 1] - arr[0];
+        
+        for(int i=0; i<arr.length-1; i++)
+        {
+            
+            max = Math.max(arr[i]+k, arr[arr.length - 1] - k);
+            min = Math.min(arr[0] + k, arr[i+1]-k);
+            
+            diff = Math.min(diff, max- min);
+        }
+        
+        return diff;
+    }
+}
+
 
 
 
