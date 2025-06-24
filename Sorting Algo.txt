@@ -1,0 +1,138 @@
+1->Bubble sort-->http://geeksforgeeks.org/problems/bubble-sort/1
+
+class Solution {
+    public static void bubbleSort(int arr[]) {
+        int n = arr.length;
+        for(int i =0;i<n-1;i++){
+          boolean flag = true;
+            for(int j = 0;j<n-1-i;j++){
+                if(arr[j] > arr[j+1]){
+                    int temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+                flag = false;
+            }
+            if(flag)break;
+        }
+    }
+}
+2->Selection sort-->https://www.geeksforgeeks.org/problems/selection-sort/1
+
+class Solution {
+    void selectionSort(int[] arr) {
+    int n = arr.length;
+    for(int i = 0;i<n;i++){
+        int min = i;
+        for(int j = i;j<n;j++){
+            if(arr[j]< arr[min])min =j;
+        }
+        int temp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = temp;
+    }
+        
+    }
+}
+3->Insertion sort-->https://www.geeksforgeeks.org/problems/insertion-sort/1
+
+class Solution {
+    public void insertionSort(int arr[]) {
+    int n = arr.length;
+    for(int i=1;i<n;i++){
+        int j =i;
+        while(j>0 && arr[j] < arr[j-1]){
+            int temp = arr[j];
+            arr[j] = arr[j-1];
+            arr[j-1] = temp;
+            j--;
+        }
+    }
+    }
+}
+4->Merge sort-->https://www.geeksforgeeks.org/problems/merge-sort/1
+
+
+class Solution {
+    public void merge(int arr[], int low, int mid, int end) {
+        int n1 = mid - low + 1;
+        int n2 = end - mid;
+
+        int a1[] = new int[n1];
+        int a2[] = new int[n2];
+
+        for (int i = 0; i < n1; i++) {
+            a1[i] = arr[low + i];
+        }
+        for (int i = 0; i < n2; i++) {
+            a2[i] = arr[mid + 1 + i];
+        }
+
+        int i = 0, j = 0, k = low;
+
+        while (i < n1 && j < n2) {
+            if (a1[i] <= a2[j]) {
+                arr[k++] = a1[i++];
+            } else {
+                arr[k++] = a2[j++];
+            }
+        }
+
+        while (i < n1) {
+            arr[k++] = a1[i++];
+        }
+
+        while (j < n2) {
+            arr[k++] = a2[j++];
+        }
+    }
+
+    void mergeSort(int arr[], int l, int r) {
+        if (l < r) {
+            int mid = l + (r - l) / 2;
+            mergeSort(arr, l, mid);
+            mergeSort(arr, mid + 1, r);
+            merge(arr, l, mid, r);
+        }
+    }
+}
+5->Quick sort-->https://www.geeksforgeeks.org/problems/quick-sort/1
+
+
+class Solution {
+
+    // Actual QuickSort function (recursive)
+    static void quickSort(int arr[], int low, int high) {
+        if (low < high) {
+            // Get partition index
+            int pivotIndex = partition(arr, low, high);
+
+            // Recursively sort left and right parts
+            quickSort(arr, low, pivotIndex - 1);
+            quickSort(arr, pivotIndex + 1, high);
+        }
+    }
+
+    // Partition function (returns pivot index)
+    static int partition(int arr[], int low, int high) {
+        int pivot = arr[high];
+        int i = low - 1;
+
+        for (int j = low; j < high; j++) {
+            if (arr[j] < pivot) {
+                i++;
+                // Swap arr[i] and arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        // Final pivot swap to correct position
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+
+        return i + 1;
+    }
+}
