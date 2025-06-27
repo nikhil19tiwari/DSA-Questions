@@ -1,0 +1,96 @@
+Q-1->Max Sum Subarray of size K-->https://www.geeksforgeeks.org/problems/max-sum-subarray-of-size-k5313/1
+
+// *****Fixed size sliding window*******
+
+class Solution {
+    public int maximumSumSubarray(int[] arr, int k) {
+    int i=0;
+    int j =0;
+    int sum = 0;
+    int n = arr.length;
+    int maxi = Integer.MIN_VALUE;
+    while(j<n){
+        //work
+        sum+=arr[j];
+        if(j-i+1<k)j++;
+        else if(j-i+1 ==k){
+            maxi = Math.max(maxi,sum);
+            sum-=arr[i];
+            i++;
+            j++;
+        }
+    }
+    return maxi;
+    }
+}
+
+
+Q-2->First negative in every window of size k ->https://www.geeksforgeeks.org/problems/first-negative-integer-in-every-window-of-size-k3345/1class Solution {
+    static List<Integer> firstNegInt(int arr[], int k) {
+    List<Integer>res = new ArrayList<>();
+    int i=0;
+    int j =0;
+    Queue<Integer>q = new LinkedList<>();
+    int n = arr.length;
+    while(j<n){//[-8, 2, 3 , -6 , 10 ]
+        if(arr[j] < 0){//-6
+            q.add(arr[j]);//-8 0 -6 
+        }
+        if(j-i+1<k)j++;
+        
+        else if(j-i+1 ==k){
+            if(q.size()!=0){
+                res.add(q.peek());
+            }
+            else{
+                res.add(0);
+            }
+            if(q.size()!= 0 && q.peek() == arr[j-k+1]){
+                q.poll();
+            }
+            i++;
+            j++;
+            
+        }
+    }
+    return res;
+        
+    }
+}
+
+
+Q-3->Count Occurences of Anagrams-->class Solution {
+    public boolean matches(int pa[],int tx[]){
+        for(int i=0;i<26;i++){
+            if(pa[i] != tx[i])return false;
+        }
+        return  true;
+    }
+    int search(String pat, String txt) {
+    int p = pat.length();
+    int t = txt.length();
+    int pa[] = new int[26];
+    int tx[] = new int[26];
+    if(p>t)return -1;
+    for(int i=0;i<p;i++){
+        pa[pat.charAt(i)-'a']++; 
+    }
+    int i=0;
+    int j =0;
+    int count =0;
+    while(j<t){
+        //work
+        tx[txt.charAt(j)-'a']++;
+        if(j-i+1 <p)j++;
+        else if(j-i+1 ==p){
+            if(matches(pa,tx)){
+                count++;
+            }
+            tx[txt.charAt(i)-'a']--;
+            i++;j++;
+        }
+    }
+    
+    return count;
+    }
+}
